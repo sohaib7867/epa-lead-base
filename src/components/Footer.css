@@ -1,0 +1,24 @@
+.footer {
+  background: var(--white);
+  border-top: 1px solid var(--gray-200);
+  padding: 20px 24px;
+  text-align: center;
+  margin-top: auto;
+}
+
+.footer__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer__brand {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--gray-700);
+  margin-bottom: 4px;
+}
+
+.footer__email {
+  font-size: 0.8125rem;
+  color: var(--teal);
+}
