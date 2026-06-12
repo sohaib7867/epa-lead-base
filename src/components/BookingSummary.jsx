@@ -69,7 +69,16 @@ export default function BookingSummary({ serviceId, date, time, timezone, onClos
   async function handlePayment() {
     setPaymentLoading(true);
     try {
-      const response = await fetch(AZURE_FUNCTION_URL);
+      const response = await fetch(AZURE_FUNCTION_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          serviceId: service?.id,
+          serviceName: service?.name,
+          amount: service?.price,       // e.g. 126, 137, 199 (USD)
+          duration: service?.duration,
+        }),
+      });
       if (!response.ok) {
         throw new Error(`Server responded with status ${response.status}`);
       }
