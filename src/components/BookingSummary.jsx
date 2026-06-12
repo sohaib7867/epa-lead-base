@@ -29,6 +29,10 @@ export default function BookingSummary({ serviceId, date, time, timezone, onClos
   const [agreed, setAgreed] = useState(false);
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
+  const [paymentLoading, setPaymentLoading] = useState(false);
+
+  const AZURE_FUNCTION_URL =
+    'https://epa-lead-base-aaa5ftekhhgbe4bt.eastasia-01.azurewebsites.net/api/stripe-checkout';
 
   function handleChange(field, value) {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -62,14 +66,42 @@ export default function BookingSummary({ serviceId, date, time, timezone, onClos
     return errs;
   }
 
-  function handleSubmit(e) {
+  async function handlePayment() {
+    setPaymentLoading(true);
+    try {
+      const response = await fetch(AZURE_FUNCTION_URL);
+      if (!response.ok) {
+        throw new Error(`Server responded with status ${response.status}`);
+      }
+      const data = await response.json();
+      if (!data.url) {
+        throw new Error('No checkout URL returned from server.');
+      }
+      window.location.href = data.url;
+    } catch (err) {
+      console.error('[Stripe Payment Error]', err);
+      alert(
+        'Unable to start payment. Please check your connection and try again.\n\nDetails: ' +
+          err.message
+      );
+      setPaymentLoading(false);
+    }
+  }
+
+  async function handleSubmit(e) {
     e.preventDefault();
     const errs = validate();
     if (Object.keys(errs).length > 0) {
       setErrors(errs);
       return;
     }
-    setSubmitted(true);
+    // Lead-Based Paint with Pay Later → show confirmation screen (no payment)
+    if (isLeadPaint && form.paymentOption === 'payLater') {
+      setSubmitted(true);
+      return;
+    }
+    // All other cases (Pay Now, or any non-Lead-Paint service) → Stripe Checkout
+    await handlePayment();
   }
 
   function handleSelectService(id) {
@@ -578,9 +610,9 @@ export default function BookingSummary({ serviceId, date, time, timezone, onClos
               className="summary-panel__submit-btn"
               type="submit"
               id="pay-schedule-btn"
-              disabled={!agreed}
+              disabled={!agreed || paymentLoading}
             >
-              Pay and Schedule Appointment
+              {paymentLoading ? 'Processing...' : 'Pay and Schedule Appointment'}
             </button>
           </form>
         </div>
