@@ -45,10 +45,11 @@
   font-size: 0.875rem;
   font-weight: 600;
   color: var(--gray-800);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  line-height: 1.3;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
+  line-height: 1.35;
+  word-break: break-word;
 }
 
 .service-selector__trigger-meta {
@@ -74,23 +75,25 @@
   position: absolute;
   top: calc(100% + 4px);
   left: 0;
-  right: 0;
-  z-index: 50;
+  /* wider than trigger so full names show */
+  min-width: max(100%, 360px);
+  z-index: 100;
   background: var(--white);
-  border: 1px solid var(--gray-200);
+  border: 1.5px solid var(--teal);
   border-radius: var(--radius-md);
-  box-shadow: var(--shadow-lg);
-  animation: dropdownSlide 200ms ease;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(42,179,160,0.1);
+  animation: dropdownSlide 180ms ease;
+  overflow: hidden;
 }
 
 @keyframes dropdownSlide {
   from {
     opacity: 0;
-    transform: translateY(-8px);
+    transform: translateY(-6px) scale(0.98);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
 
@@ -145,7 +148,10 @@
   font-size: 0.875rem;
   font-weight: 500;
   color: var(--gray-800);
-  line-height: 1.3;
+  line-height: 1.35;
+  white-space: normal;
+  word-break: break-word;
+  text-align: left;
 }
 
 .service-selector__meta {
