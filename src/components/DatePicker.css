@@ -48,16 +48,21 @@
 /* Dropdown calendar */
 .datepicker__dropdown {
   position: absolute;
-  top: calc(100% + 4px);
+  top: calc(100% + 6px);
   right: 0;
-  z-index: 50;
-  width: 300px;
+  z-index: 200;
+  width: clamp(260px, 100vw - 32px, 320px);
   background: var(--white);
-  border: 1px solid var(--gray-200);
+  border: 1.5px solid var(--teal);
   border-radius: var(--radius-md);
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(42, 179, 160, 0.1);
   padding: 16px;
-  animation: dropdownSlide 200ms ease;
+  animation: dpSlideIn 180ms ease;
+}
+
+@keyframes dpSlideIn {
+  from { opacity: 0; transform: translateY(-6px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 /* Header */
@@ -98,6 +103,7 @@
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 2px;
+  width: 100%;
 }
 
 .datepicker__day-name {
@@ -109,12 +115,11 @@
 }
 
 .datepicker__cell {
-  width: 36px;
-  height: 36px;
+  width: 100%;
+  aspect-ratio: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto;
   font-size: 0.8125rem;
   font-weight: 500;
   color: var(--gray-700);

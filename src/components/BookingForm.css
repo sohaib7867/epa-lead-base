@@ -5,7 +5,7 @@
   align-items: center;
   justify-content: center;
   padding: 40px 24px;
-  overflow: hidden;
+  /* overflow: hidden removed — it was clipping calendar/timezone dropdowns */
 }
 
 /* Watermark */
@@ -19,6 +19,7 @@
   pointer-events: none;
   z-index: 0;
   opacity: 0.8;
+  overflow: hidden;  /* clip the watermark itself, not the whole section */
 }
 
 .booking__container {
