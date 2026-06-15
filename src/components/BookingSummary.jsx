@@ -91,7 +91,7 @@ export default function BookingSummary({ serviceId, date, time, timezone, onClos
       console.error('[Stripe Payment Error]', err);
       alert(
         'Unable to start payment. Please check your connection and try again.\n\nDetails: ' +
-          err.message
+        err.message
       );
       setPaymentLoading(false);
     }
