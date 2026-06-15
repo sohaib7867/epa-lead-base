@@ -1,0 +1,214 @@
+/* ============================================
+   Payment Status Page
+   ============================================ */
+
+.ps__page {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+  background: var(--gray-50);
+}
+
+.ps__card {
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xl);
+  padding: 48px 40px;
+  max-width: 560px;
+  width: 100%;
+  text-align: center;
+  animation: cardIn 400ms ease both;
+}
+
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(24px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0)    scale(1); }
+}
+
+/* ── Icon ─────────────────────────────────── */
+.ps__icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+}
+
+.ps__icon--success {
+  background: rgba(34, 197, 94, 0.1);
+}
+
+.ps__icon--cancel {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--red-error);
+}
+
+/* Animated SVG checkmark */
+.ps__checkmark {
+  width: 52px;
+  height: 52px;
+}
+
+.ps__checkmark-circle {
+  stroke: var(--green-check);
+  stroke-width: 2;
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  animation: stroke 0.5s cubic-bezier(0.65, 0, 0.45, 1) 0.2s forwards;
+}
+
+.ps__checkmark-check {
+  stroke: var(--green-check);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.7s forwards;
+}
+
+@keyframes stroke {
+  to { stroke-dashoffset: 0; }
+}
+
+/* ── Title ────────────────────────────────── */
+.ps__title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  line-height: 1.2;
+}
+
+.ps__title--success { color: #16a34a; }
+.ps__title--cancel  { color: var(--red-error); }
+
+.ps__subtitle {
+  font-size: 0.9375rem;
+  color: var(--gray-600);
+  line-height: 1.6;
+  margin-bottom: 32px;
+}
+
+/* ── Steps (success only) ─────────────────── */
+.ps__steps {
+  background: var(--teal-bg);
+  border: 1px solid rgba(42, 179, 160, 0.2);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+.ps__steps-title {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--teal-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 16px;
+}
+
+.ps__step {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  margin-bottom: 14px;
+}
+
+.ps__step:last-child { margin-bottom: 0; }
+
+.ps__step-num {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  background: var(--teal);
+  color: var(--white);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-top: 1px;
+}
+
+.ps__step strong {
+  display: block;
+  font-size: 0.875rem;
+  color: var(--gray-800);
+  margin-bottom: 2px;
+}
+
+.ps__step p {
+  font-size: 0.8125rem;
+  color: var(--gray-500);
+  line-height: 1.5;
+}
+
+/* ── Cancel box ───────────────────────────── */
+.ps__cancel-box {
+  background: var(--gray-50);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: 20px 24px;
+  margin-bottom: 24px;
+  color: var(--gray-600);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+/* ── Notice bar ───────────────────────────── */
+.ps__notice {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 0.8125rem;
+  color: var(--gray-500);
+  margin-bottom: 28px;
+}
+
+.ps__notice svg { flex-shrink: 0; }
+.ps__notice a   { color: var(--teal); font-weight: 500; }
+
+/* ── Button ───────────────────────────────── */
+.ps__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 32px;
+  border-radius: var(--radius-md);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  border: none;
+  width: 100%;
+}
+
+.ps__btn--primary {
+  background: var(--teal);
+  color: var(--white);
+}
+
+.ps__btn--primary:hover {
+  background: var(--teal-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(42, 179, 160, 0.35);
+}
+
+/* ── Responsive ───────────────────────────── */
+@media (max-width: 600px) {
+  .ps__card {
+    padding: 32px 20px;
+  }
+
+  .ps__title {
+    font-size: 1.4rem;
+  }
+}
