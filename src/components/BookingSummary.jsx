@@ -32,7 +32,7 @@ export default function BookingSummary({ serviceId, date, time, timezone, onClos
   const [paymentLoading, setPaymentLoading] = useState(false);
 
   const AZURE_FUNCTION_URL =
-    'https://epa-lead-base-aaa5ftekhhgbe4bt.eastasia-01.azurewebsites.net/api/stripe-checkout';
+    'https://booking-api-c9gggfe4cgbbaxd0.eastasia-01.azurewebsites.net/api/stripe-checkout';
 
   function handleChange(field, value) {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -73,10 +73,37 @@ export default function BookingSummary({ serviceId, date, time, timezone, onClos
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          serviceId: service?.id,
-          serviceName: service?.name,
-          amount: service?.price,       // e.g. 126, 137, 199 (USD)
-          duration: service?.duration,
+          // ── Service info ──────────────────────────────
+          serviceId:    service?.id,
+          serviceName:  service?.name,
+          servicePrice: service?.price,
+          duration:     service?.duration,
+
+          // ── Appointment details ───────────────────────
+          bookingDate:   date ? date.toISOString() : null,
+          bookingTime:   time,
+          timezone:      timezone?.value  || '',
+          timezoneLabel: timezone?.label  || '',
+          paymentOption: form.paymentOption,
+
+          // ── Customer contact ──────────────────────────
+          firstName:     form.firstName,
+          lastName:      form.lastName,
+          email:         form.email,
+          countryCode:   form.countryCode,
+          contactNumber: form.contactNumber,
+
+          // ── Property details ──────────────────────────
+          propertyAddress: form.propertyAddress,
+          apartment:       form.apartment,
+          city:            form.city,
+          state:           form.state,
+          zipCode:         form.zipCode,
+          bedrooms:        form.bedrooms,
+          lockBoxCode:     form.lockBoxCode,
+          tenantInfo:      form.tenantInfo,
+          propertyType:    form.propertyType,
+          howDidYouHear:   form.howDidYouHear,
         }),
       });
       if (!response.ok) {
