@@ -31,8 +31,7 @@ export default function BookingSummary({ serviceId, date, time, timezone, onClos
   const [submitted, setSubmitted] = useState(false);
   const [paymentLoading, setPaymentLoading] = useState(false);
 
-  const AZURE_FUNCTION_URL =
-    'https://booking-api-c9gggfe4cgbbaxd0.eastasia-01.azurewebsites.net/api/stripe-checkout';
+  const AZURE_FUNCTION_URL = import.meta.env.VITE_AZURE_FUNCTION_URL;
 
   function handleChange(field, value) {
     setForm((prev) => ({ ...prev, [field]: value }));
